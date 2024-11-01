@@ -1,0 +1,87 @@
+﻿@model List<product>
+@section Scripts {
+    <script>
+        @if (TempData["success"] != null)
+        {
+            <text>toastr["success"]("@TempData["success"]"); </text>
+        }
+    </script>
+}
+
+<div class="container py-5">
+    <div class="row">
+        <!-- Card 1 -->
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card product-card">
+                    <!-- صورة المنتج -->
+                    <img src="~/img/@item.ImgUrl" class="card-img-top product-image" alt="Product Image">
+                    <div class="product-info">
+                        <h5 class="card-title">@item.Name</h5>
+                        <!-- السعر -->
+                        <p class="product-price">@item.Price $</p>
+                        <!-- التقييم كأرقام -->
+                        <p class="product-rating">
+                            Rating: <span>@item.Rate</span> / 5
+                        </p>
+                        <!-- زر عرض التفاصيل -->
+                        <a href="/Home/Details/@item.Id" class="btn btn-details btn-block">View Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+        
+
+       
+    </div>
+</div>
+
+<!-- تنسيق الكروت -->
+<style>
+    .product-card {
+        border: none;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+        background: #ffffff;
+    }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+    .product-image {
+        max-height: 200px;
+        object-fit: cover;
+    }
+
+    .product-info {
+        padding: 15px;
+    }
+
+    .product-price {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #4A148C;
+    }
+
+    .product-rating {
+        color: #FFB300;
+        font-weight: bold;
+    }
+
+    .btn-details {
+        background-color: #8E24AA;
+        color: #ffffff;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-details:hover {
+            background-color: #4A148C;
+            color: #ffffff;
+        }
+</style>

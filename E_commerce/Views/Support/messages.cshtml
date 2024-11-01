@@ -1,0 +1,113 @@
+﻿@{
+    ViewData["Title"] = "Messages";
+}
+
+<style>
+    .modal-header {
+        background-color: #4A148C;
+        color: white;
+    }
+
+    .modal-body {
+        font-family: Arial, sans-serif;
+        line-height: 1.5;
+    }
+
+        .modal-body strong {
+            color: #4A148C; /* لون عناوين التفاصيل */
+        }
+
+    .message-detail {
+        margin-bottom: 15px;
+        padding: 10px;
+        border: 1px solid #4A148C;
+        border-radius: 5px;
+        background-color: #F3E5F5; /* خلفية بيضاء فاتحة */
+    }
+
+    .message-content {
+        padding: 10px;
+        background-color: #EDE7F6; /* خلفية أفتح لمحتوى الرسالة */
+        border-left: 5px solid #4A148C;
+    }
+</style>
+
+<div class="container mt-5">
+    <h2 class="text-center">Message Table</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Message Date</th>
+                <th>Sender Name</th>
+                <th>Email</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody id="messageTable">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CreatedAt</td>
+                    <td>@item.UserName</td>
+                    <td>@item.UserEmail</td>
+                    <td>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#messageModal"
+                                data-date="@item.CreatedAt"
+                                data-username="@item.UserName"
+                                data-email="@item.UserEmail"
+                                data-message="@item.Message">
+                            View Details
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageModalLabel">Message Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="message-detail">
+                        <strong>Message Date:</strong> <span id="modalDate"></span>
+                    </div>
+                    <div class="message-detail">
+                        <strong>Sender Name:</strong> <span id="modalUsername"></span>
+                    </div>
+                    <div class="message-detail">
+                        <strong>Email:</strong> <span id="modalEmail"></span>
+                    </div>
+                    <div class="message-detail">
+                        <strong>Message Content:</strong>
+                        <div id="messageContent" class="message-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $('#messageModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var date = button.data('date');
+        var username = button.data('username');
+        var email = button.data('email');
+        var message = button.data('message');
+
+        var modal = $(this);
+        modal.find('#modalDate').text(date);
+        modal.find('#modalUsername').text(username);
+        modal.find('#modalEmail').text(email);
+        modal.find('#messageContent').text(message);
+    });
+</script>

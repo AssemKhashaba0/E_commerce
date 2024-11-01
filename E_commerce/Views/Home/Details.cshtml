@@ -1,0 +1,140 @@
+﻿ @model product
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <!-- بطاقة تفاصيل المنتج -->
+        
+            <div class="col-md-8">
+                <div class="card product-detail-card">
+                    <!-- صورة المنتج -->
+                    <img src="~/img/@Model.ImgUrl" class="card-img-top product-image-large" alt="Product Image">
+
+                    <!-- تفاصيل المنتج -->
+                    <div class="product-detail-info p-4">
+                        <h3 class="card-title">@Model.Name</h3>
+                        <p class="product-category"><strong>Category:</strong> @Model.category.Name</p>
+
+                        <!-- السعر والتقييم -->
+                        <p class="product-price mb-1">@Model.Price</p>
+                        <p class="product-rating mb-4">
+                            Rating: <span>@Model.Rate</span> / 5
+                        </p>
+
+                        <!-- وصف المنتج -->
+                        <p class="product-description">@Model.Description</p>
+
+                        <!-- إدخال الكمية -->
+                        <div class="quantity-section mb-3 d-flex align-items-center">
+                            <label for="quantity" class="form-label me-3"><strong>Quantity:</strong></label>
+                            <div class="quantity-input">
+                                <button class="btn btn-outline-secondary btn-quantity" onclick="decreaseQuantity()">-</button>
+                                <input type="number" id="quantity" name="quantity" value="1" min="1" class="form-control text-center" readonly>
+                                <button class="btn btn-outline-secondary btn-quantity" onclick="increaseQuantity()">+</button>
+                            </div>
+                        </div>
+
+                        <!-- زر إضافة إلى السلة -->
+                        <a href="#" class="btn btn-add-to-cart btn-block">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+<!-- JavaScript للتحكم في زيادة ونقصان الكمية -->
+<script>
+    function increaseQuantity() {
+        let quantityInput = document.getElementById("quantity");
+        let currentQuantity = parseInt(quantityInput.value);
+        quantityInput.value = currentQuantity + 1;
+    }
+
+    function decreaseQuantity() {
+        let quantityInput = document.getElementById("quantity");
+        let currentQuantity = parseInt(quantityInput.value);
+        if (currentQuantity > 1) {
+            quantityInput.value = currentQuantity - 1;
+        }
+    }
+</script>
+
+<!-- تنسيقات CSS الخاصة بحقل إدخال الكمية -->
+<style>
+    .quantity-input {
+        display: flex;
+        align-items: center;
+    }
+
+    .btn-quantity {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #quantity {
+        max-width: 70px;
+        font-size: 1.2rem;
+        text-align: center;
+        border: none;
+    }
+
+    .product-detail-card {
+        border: none;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+        background: #ffffff;
+    }
+
+    .product-detail-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .product-image-large {
+        max-height: 400px;
+        object-fit: cover;
+    }
+
+    .product-detail-info {
+        padding: 20px;
+    }
+
+    .product-category {
+        font-size: 1rem;
+        color: #6c757d;
+    }
+
+    .product-price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #4A148C;
+    }
+
+    .product-rating {
+        color: #FFB300;
+        font-weight: bold;
+    }
+
+    .product-description {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        color: #333;
+    }
+
+    .btn-add-to-cart {
+        background-color: #8E24AA;
+        color: #ffffff;
+        font-weight: bold;
+        padding: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-add-to-cart:hover {
+            background-color: #4A148C;
+        }
+</style>

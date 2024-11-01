@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+           
+            <!-- Back button with icon -->
+            <a href="/category/index">
+                
+            <button  class="btn btn-secondary mb-3">
+                <i class="fas fa-arrow-left"></i> Back
+            </button></a>
+
+            <h2 class="text-center mb-4">Add New Category</h2>
+            <form method="post" action="/category/create">
+                <div class="mb-3">
+                    <label  class="form-label">New Category</label>
+                    <input class="form-control" name="Name"/>
+                    <span  class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

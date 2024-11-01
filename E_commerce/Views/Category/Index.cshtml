@@ -1,0 +1,112 @@
+﻿@{
+    ViewData["Title"] = "All Category";
+}
+
+<h1>All Category</h1>
+
+<div class="d-flex justify-content-between mb-3">
+    <a href="/category/create">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCategoryModal">
+            <i class="fas fa-plus-circle"></i> Add New Category
+        </button>
+    </a>
+</div>
+
+<!-- جدول عرض الفئات -->
+<table class="table table-bordered text-center">
+    <thead class="thead-dark">
+        <tr style=" background: #bfbebe; color: black; ">
+            <th style="width: 20%;">#</th>
+            <th style="width: 50%;">Name</th>
+            <th style="width: 30%;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int counter = 1; // بدء العد من 1
+        }
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@counter</td> <!-- عرض الرقم الحالي -->
+                <td>@item.Name</td>
+                <td>
+                    <a href="/category/Edit?categoryid=@item.Id">
+                        <button class="btn btn-sm btn-outline-primary" title="Edit">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                    </a>
+                    <a href="javascript:void(0);" onclick="confirmDelete('@item.Id')">
+                        <button class="btn btn-sm btn-outline-danger" title="Delete">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </button>
+                    </a>
+                </td>
+            </tr>
+            counter++; // زيادة العداد في كل تكرار
+        }
+    </tbody>
+</table>
+
+<!-- نافذة التأكيد للحذف -->
+<div id="confirmationModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to delete this category?</p>
+        <button id="confirmDeleteButton" class="btn btn-danger">Yes, Delete</button>
+        <button onclick="closeModal()" class="btn btn-secondary">Cancel</button>
+    </div>
+</div>
+
+<!-- كود JavaScript الخاص بعرض نافذة التأكيد -->
+<script>
+    function confirmDelete(categoryId) {
+        const modal = document.getElementById("confirmationModal");
+        const confirmButton = document.getElementById("confirmDeleteButton");
+
+        // عرض النافذة المنبثقة
+        modal.style.display = "block";
+
+        // إجراء الحذف عند الضغط على الزر
+        confirmButton.onclick = function() {
+            window.location.href = `/category/Delete?categoryId=${categoryId}`;
+        };
+    }
+
+    // إغلاق النافذة عند إلغاء العملية
+    function closeModal() {
+        document.getElementById("confirmationModal").style.display = "none";
+    }
+</script>
+
+<!-- تصميم CSS للنافذة المنبثقة -->
+<style>
+    /* تصميم الخلفية للنافذة */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    /* تصميم محتوى النافذة */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 300px;
+        text-align: center;
+        border-radius: 8px;
+    }
+
+        /* أزرار النافذة */
+        .modal-content button {
+            padding: 10px 20px;
+            margin: 10px;
+        }
+</style>
