@@ -1,6 +1,14 @@
 ﻿@{
     ViewData["Title"] = "All Category";
 }
+@section Scripts {
+        <script>
+        @if (TempData["success"] != null)
+        {
+            <text>toastr["success"]("@TempData["success"]"); </text>
+        }
+        </script>
+}
 
 <h1>All Category</h1>
 

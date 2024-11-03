@@ -23,12 +23,17 @@ namespace E_commerce.Controllers
         }
          public IActionResult Details(int id)
         {
-
+            
             var product = dbContext.products.Include(p => p.category).FirstOrDefault(p => p.Id == id);
+            if (product != null) 
+            {
+                return View(product);
+            }
 
-
-
-            return View(product);
+            else
+            {
+                return RedirectToAction("NotFound", "Home");
+            }
         }
 
 
