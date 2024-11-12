@@ -8,30 +8,32 @@ namespace E_commerce.Controllers
 {
     public class ProductController : Controller
     {
-        ApplicationDbContext dbContext =new ApplicationDbContext();
+        ApplicationDbContext dbContext = new ApplicationDbContext();
         public IActionResult Index()
         {
-            var product = dbContext.products. Include(e=>e.category).ToList();
+            var product = dbContext.products.Include(e => e.category).ToList();
             return View(product);
         }
         [HttpGet]
         public IActionResult create()
         {
             var category = dbContext.categories.ToList();
-            return View(category);
+            ViewBag.category = category;
+            var product = dbContext.products.ToList();
+            return View();
         }
         [HttpPost]
-        public IActionResult create(product product , IFormFile  ImgUrl)
+        public IActionResult create(product product, IFormFile ImgUrl)
         {
-            if(ImgUrl.Length > 0)
+            if (ImgUrl.Length > 0)
             {
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImgUrl.FileName);
-               var pathname = Path.Combine(Directory.GetCurrentDirectory() ,"wwwroot//img", fileName);
+                var pathname = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//img", fileName);
                 using (var stream = System.IO.File.Create(pathname))
                 {
                     ImgUrl.CopyTo(stream);
                 }
-                product.ImgUrl= fileName;
+                product.ImgUrl = fileName;
             }
             dbContext.products.Add(product);
             dbContext.SaveChanges();
@@ -44,7 +46,7 @@ namespace E_commerce.Controllers
             var product = dbContext.products.Find(productId);
             var category = dbContext.categories.ToList();
             ViewBag.allcategory = category;
-            if ( product != null)
+            if (product != null)
             {
                 return View(product);
             }
@@ -60,7 +62,7 @@ namespace E_commerce.Controllers
         public IActionResult Edit(product product, IFormFile ImgUrl)
         {
 
-            var oldproduct = dbContext.products.AsNoTracking().FirstOrDefault(e=>e.Id == product.Id);
+            var oldproduct = dbContext.products.AsNoTracking().FirstOrDefault(e => e.Id == product.Id);
             if (ImgUrl != null && ImgUrl.Length > 0)
             {
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImgUrl.FileName);
@@ -76,9 +78,9 @@ namespace E_commerce.Controllers
                 {
                     System.IO.File.Delete(pathold);
                 }
-                    
-                    
-                    
+
+
+
 
 
                 product.ImgUrl = fileName;
@@ -113,7 +115,7 @@ namespace E_commerce.Controllers
 
 
 
-            product product =new product() { Id = productId };
+            product product = new product() { Id = productId };
 
             dbContext.products.Remove(product);
             dbContext.SaveChanges();

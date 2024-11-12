@@ -1,5 +1,7 @@
 ﻿using E_commerce.Data;
 using E_commerce.Models;
+using E_commerce.utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,6 +31,7 @@ namespace E_commerce.Controllers
             return View(supportMessage); // إعادة عرض الصفحة مع الأخطاء
         }
 
+        [Authorize(Roles = $"{SD.AdminRole}")]
 
         public IActionResult messages()
         {

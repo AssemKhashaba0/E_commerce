@@ -1,4 +1,5 @@
-﻿@model List<category>
+﻿@model product
+
 <style>
     body {
         background-color: #f3f4f6;
@@ -103,24 +104,28 @@
     <form  method="post" asp-controller="product" asp-action="create" enctype="multipart/form-data" >
         <div class="form-group">
             <label for="productName">Product Name</label>
-            <input type="text" class="form-control" id="productName" name="Name" placeholder="Enter product name" required>
+            <input  class="form-control" asp-for="Name">
+             <span  class="text-danger" asp-validation-for="Name"></span>
+
         </div>
 
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="form-control" id="description" rows="3" name="Description" placeholder="Enter description" required></textarea>
+            <textarea class="form-control" asp-for="Description">@Model.Description </textarea>
         </div>
+             <span  class="text-danger" asp-validation-for="Description"></span>
 
         <div class="form-group">
             <label for="price">Price</label>
-            <input type="number" class="form-control" id="price" name="Price" placeholder="Enter price" required>
+            <input  class="form-control"asp-for="Price">
         </div>
+             <span  class="text-danger" asp-validation-for="Price"></span>
 
         <div class="form-group">
             <label for="category">Category</label>
-            <select class="form-control" id="category" name="categoryId" required>
+            <select class="form-control" id="category" name="categoryId" >
                 <option selected disabled>Choose a category</option>
-                @foreach(var item in Model)
+                @foreach(var item in ViewBag.category)
                 {
                  
 
@@ -130,6 +135,7 @@
 
                 }
             </select>
+             <span  class="text-danger" asp-validation-for="categoryId"></span>
 
 
         </div>
@@ -138,7 +144,9 @@
             <label for="image">Product Image</label>
             <div class="file-input-wrapper">
                 <label for="image"  class="file-input-label">Choose File</label>
-                <input type="file" name="ImgUrl" class="form-control-file" id="image" accept="image/*" required onchange="previewImage(event)">
+                <input type="file" name="ImgUrl" class="form-control-file" id="image" accept="image/*"  onchange="previewImage(event)">
+             <span  class="text-danger" asp-validation-for="ImgUrl"></span>
+
             </div>
         </div>
 
@@ -168,3 +176,7 @@
         }
     }
 </script>
+
+@section Scripts {
+                <partial name="_ValidationScriptsPartial.cshtml"></partial>
+}

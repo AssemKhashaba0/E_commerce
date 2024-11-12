@@ -1,4 +1,4 @@
-﻿
+﻿@model category
 @{
     ViewData["Title"] = "Create";
 }
@@ -11,7 +11,7 @@
            
             <!-- Back button with icon -->
             <a href="/category/index">
-                
+                <a href="t:\e_commerce\e_commerce\e_commerce\views\category\create.cshtml">t:\e_commerce\e_commerce\e_commerce\views\category\create.cshtml</a>
             <button  class="btn btn-secondary mb-3">
                 <i class="fas fa-arrow-left"></i> Back
             </button></a>
@@ -20,11 +20,15 @@
             <form method="post" action="/category/create">
                 <div class="mb-3">
                     <label  class="form-label">New Category</label>
-                    <input class="form-control" name="Name"/>
-                    <span  class="text-danger"></span>
+                    <input class="form-control" asp-for="Name"/>
+                    <span  class="text-danger" asp-validation-for="Name"></span>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Submit</button>
             </form>
         </div>
     </div>
 </div>
+
+@section Scripts {
+                <partial name="_ValidationScriptsPartial.cshtml"></partial>
+}

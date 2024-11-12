@@ -1,0 +1,282 @@
+﻿@using E_commerce.ViewModel
+@model ApplicationUserVM
+@{
+    Layout = "Account";
+}
+
+<div class="form-container">
+    <h2>Create Account</h2>
+    <form asp-action="register">
+        <div asp-validation-summary="None" class="text-danger"></div>
+
+        <!-- Name Field -->
+        <div class="form-group">
+            <label asp-for="Name" class="control-label input-label"><i class="fas fa-user"></i> Name</label>
+            <input asp-for="Name" class="form-control" placeholder="Enter your full name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <!-- Email Field -->
+        <div class="form-group">
+            <label asp-for="Email" class="control-label input-label"><i class="fas fa-envelope"></i> Email</label>
+            <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+            <label asp-for="Password" class="control-label input-label"><i class="fas fa-lock"></i> Password</label>
+            <input asp-for="Password" type="password" class="form-control" placeholder="Choose a strong password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <!-- Confirm Password Field -->
+        <div class="form-group">
+            <label asp-for="ConfirmPassword" class="control-label input-label"><i class="fas fa-lock"></i> Confirm Password</label>
+            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Re-enter your password" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+
+        <!-- Phone Field -->
+        <div class="form-group">
+            <label asp-for="Phone" class="control-label input-label"><i class="fas fa-phone"></i> Phone</label>
+            <input asp-for="Phone" type="tel" class="form-control" placeholder="Enter your phone number" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+
+        <!-- City Field -->
+        <div class="form-group">
+            <label asp-for="City" class="control-label input-label"><i class="fas fa-city"></i> City</label>
+            <input asp-for="City" class="form-control" placeholder="Enter your city" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+            <input type="submit" value="Create Account" class="btn btn-primary" />
+        </div>
+    </form>
+
+    <!-- Extra Links -->
+    <div class="extra-links">
+        <p><a href="/Account/login"><i class="fas fa-sign-in-alt"></i> Already have an account? Log in</a></p>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+}
+
+<style>
+    /* تنسيق الحاوية الرئيسية */
+    .form-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* عنوان النموذج */
+    h2 {
+        text-align: center;
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    /* تنسيق الحقول */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .control-label {
+        display: block;
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 8px;
+    }
+
+    .input-label i {
+        margin-right: 10px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        transition: border-color 0.3s;
+    }
+
+        .form-control:focus {
+            border-color: #4A148C;
+            outline: none;
+        }
+
+    /* تنسيق رسائل التحقق */
+    .text-danger {
+        font-size: 12px;
+        color: #e74c3c;
+    }
+
+    /* تنسيق الأزرار */
+    .btn {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        background-color: #4A148C;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .btn:hover {
+            background-color: #8E24AA;
+        }
+
+    /* روابط إضافية */
+    .extra-links {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .extra-links p {
+            margin: 0;
+        }
+
+        .extra-links a {
+            color: #4A148C;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+            .extra-links a:hover {
+                color: #8E24AA;
+            }
+
+    /* تنسيق أيقونات الحقول */
+    .input-label i {
+        font-size: 18px;
+        color: #4A148C;
+    }
+
+    /* تنسيق التحقق التفاعلي */
+    input[type="email"]:invalid,
+    input[type="password"]:invalid,
+    input[type="tel"]:invalid {
+        border-color: #e74c3c;
+    }
+
+    input[type="email"]:valid,
+    input[type="password"]:valid,
+    input[type="tel"]:valid {
+        border-color: #4A148C;
+    }
+
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f3e5f5;
+    }
+
+    .login-container {
+        max-width: 400px;
+        margin: auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        margin-top: 21px;
+    }
+
+    .login-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #4a148c;
+        margin-bottom: 10px;
+    }
+
+    .login-subtitle {
+        font-size: 16px;
+        color: #8e24aa;
+        margin-bottom: 30px;
+    }
+
+    .login-form .form-group {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+        .login-form .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #4a148c;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .login-form .form-group i {
+            color: #8e24aa;
+            margin-right: 5px;
+        }
+
+    .login-form .form-control {
+        padding: 12px;
+        font-size: 15px;
+        border: 1px solid #8e24aa;
+        border-radius: 5px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .login-form .form-check-input {
+        margin-right: 5px;
+    }
+
+    .btn-primary {
+        background-color: #8e24aa;
+        border: none;
+        color: #ffffff;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #6d1b7b;
+        }
+
+    .form-links {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+        .form-links .btn-link {
+            color: #8e24aa;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+            .form-links .btn-link i {
+                margin-right: 4px;
+            }
+
+            .form-links .btn-link:hover {
+                text-decoration: underline;
+                color: #6d1b7b;
+            }
+   
+</style>

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<category>
+@{
     ViewData["Title"] = "All Category";
 }
 @section Scripts {
@@ -25,8 +26,13 @@
     <thead class="thead-dark">
         <tr style=" background: #bfbebe; color: black; ">
             <th style="width: 20%;">#</th>
-            <th style="width: 50%;">Name</th>
+            <th style="width: 25%;">Name</th>
+            <th style="width: 25%;">Total product</th>
+            @if (User.IsInRole(SD.AdminRole))
+            {
             <th style="width: 30%;">Actions</th>
+            }
+
         </tr>
     </thead>
     <tbody>
@@ -39,8 +45,13 @@
             <tr>
                 <td>@counter</td> <!-- عرض الرقم الحالي -->
                 <td>@item.Name</td>
-                <td>
-                    <a href="/category/Edit?categoryid=@item.Id">
+                <td>@item.Products.Count</td>
+                
+                    @if (User.IsInRole(SD.AdminRole))
+                    {
+                    <td>
+
+                        <a href="/category/Edit?categoryid=@item.Id">
                         <button class="btn btn-sm btn-outline-primary" title="Edit">
                             <i class="fas fa-edit"></i> Edit
                         </button>
@@ -51,6 +62,8 @@
                         </button>
                     </a>
                 </td>
+                    }
+                    
             </tr>
             counter++; // زيادة العداد في كل تكرار
         }

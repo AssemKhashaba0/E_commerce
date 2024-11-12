@@ -1,0 +1,108 @@
+﻿﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5Shop  | @ViewData["Title"]  </title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/E_commerce.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+    <style>
+        /* إعدادات عامة لتثبيت الفوتر في الأسفل */
+        body, html {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* تصميم الجسم الرئيسي ليملأ المساحة المتبقية */
+        .container {
+            flex: 1;
+        }
+
+        /* تحسينات على الهدير */
+        header .navbar {
+            background-color: #6A1B9A; /* لون متناسق مع البنفسجي للوجو */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header .navbar-brand {
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+
+        header .navbar-nav .nav-link {
+            color: #FFFFFF !important;
+            transition: color 0.3s;
+        }
+
+            header .navbar-nav .nav-link:hover {
+                color: #FFB300 !important; /* لون مميز عند التمرير */
+            }
+
+        header .navbar-toggler-icon {
+            filter: invert(1);
+        }
+
+        /* تحسينات على الفوتر */
+        footer {
+            background-color: #4A148C;
+            color: #FFFFFF;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+            border-top: none;
+        }
+
+            footer a {
+                color: #FFB300;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+                footer a:hover {
+                    color: #FFFFFF;
+                }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/logo/logo.png" alt="E_commerce Logo" style="height: 40px; width: auto;" /> <!-- صورة اللوجو -->
+                </a>
+                
+            </div>
+        </nav>
+    </header>
+
+    <!-- هنا يحتوي على محتوى الصفحة الرئيسية -->
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- الفوتر سيبقى دائماً في الأسفل -->
+    <footer>
+        <div class="container">
+            &copy; 2024 - 5Shop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "All Products"; // تعديل عنوان الصفحة
 }
 
@@ -33,7 +32,12 @@
             <th style="width: 15%;">Rate</th>
             <th style="width: 15%;">Price</th>
             <th style="width: 15%;">Category</th>
-            <th style="width: 25%;">Actions</th>
+            @if (User.IsInRole(SD.AdminRole))
+            {
+                <th style="width: 25%;">Actions</th>
+
+            }
+
         </tr>
     </thead>
     <tbody>
@@ -49,20 +53,25 @@
                 <td>@item.Rate</td>
                 <td>@item.Price</td>
                 <th>@item.category.Name</th>
+                @if (User.IsInRole(SD.AdminRole))
+                {
+                    <td>
+                        <a href="/product/Edit?productId=@item.Id">
+                            <!-- تعديل الرابط -->
+                            <button class="btn btn-sm btn-outline-primary" title="Edit">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                        </a>
+                        <a href="javascript:void(0);" onclick="confirmDelete('@item.Id')">
+                            <button class="btn btn-sm btn-outline-danger" title="Delete">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </a>
+                    </td>
 
-                <td>
-                    <a href="/product/Edit?productId=@item.Id">
-                        <!-- تعديل الرابط -->
-                        <button class="btn btn-sm btn-outline-primary" title="Edit">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                    </a>
-                    <a href="javascript:void(0);" onclick="confirmDelete('@item.Id')">
-                        <button class="btn btn-sm btn-outline-danger" title="Delete">
-                            <i class="fas fa-trash-alt"></i> Delete
-                        </button>
-                    </a>
-                </td>
+                }
+
+                
             </tr>
             counter++; // زيادة العداد في كل تكرار
         }

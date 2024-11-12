@@ -1,31 +1,88 @@
 ﻿@model category
+
 @{
     ViewData["Title"] = "Edit";
 }
 
+<h1 class="text-primary">Edit</h1>
 
-<div class="container mt-5">
+<h4 class="text-secondary">Category</h4>
+<hr />
+
 <div class="row justify-content-center">
     <div class="col-md-6">
+        <form asp-action="Edit" class="p-4 rounded shadow">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <input type="hidden" asp-for="Id" />
 
-        <!-- Back button with icon -->
-        <a href="/category/index">
-
-            <button class="btn btn-secondary mb-3">
-                <i class="fas fa-arrow-left"></i> Back
-            </button>
-        </a>
-
-            <h2 class="text-center mb-4">Edit New Category</h2>
-            <form method="post" action="/category/Edit">
-            <div class="mb-3">
-                <label class="form-label">New Category</label>
-                <input type="hidden" name="Id" value="@Model.Id" />
-                <input class="form-control" name="Name" value="@Model.Name"/>
-                <span class="text-danger"></span>
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="form-label fw-bold"></label>
+                <input asp-for="Name" class="form-control border-0" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Submit</button>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary w-100" />
+            </div>
         </form>
     </div>
 </div>
+
+<div class="text-center mt-4">
+    <a asp-action="Index" class="text-decoration-none text-secondary">Back to List</a>
 </div>
+
+<style>
+    /* الألوان المفضلة */
+    :root {
+        --primary-color: #4A148C;
+        --secondary-color: #8E24AA;
+        --accent-color: #FFB300;
+        --text-color: #FFFFFF;
+        --background-color: #F3E5F5;
+    }
+
+    body {
+        background-color: var(--background-color);
+        color: var(--primary-color);
+    }
+
+    h1 {
+        color: var(--primary-color);
+    }
+
+    h4 {
+        color: var(--secondary-color);
+    }
+
+    .form-control {
+        background-color: var(--background-color);
+        color: var(--primary-color);
+    }
+
+    .form-label {
+        color: var(--secondary-color);
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+    .btn-primary:hover {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+    }
+
+    a {
+        color: var(--secondary-color);
+    }
+
+    a:hover {
+        color: var(--accent-color);
+    }
+
+    .shadow {
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+</style>

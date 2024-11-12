@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<div class="access-denied-container">
+    <h1>Access Denied</h1>
+    <p>Sorry, you do not have permission to access this page.</p>
+    <a href="~/Home/Index" class="back-home-btn">Return to Home</a>
+</div>
+
+<!-- Link to an external or internal stylesheet -->
+<link rel="stylesheet" href="~/css/access-denied.css">
+<style>
+    .access-denied-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 80vh;
+        text-align: center;
+        padding: 20px;
+        background-color: #f9f9f9;
+        color: #333;
+        font-family: Arial, sans-serif;
+    }
+
+        .access-denied-container h1 {
+            font-size: 2.5rem;
+            color: #d9534f;
+            margin-bottom: 15px;
+        }
+
+        .access-denied-container p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+    .back-home-btn {
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: #0275d8;
+        color: #fff;
+        text-decoration: none;
+        font-size: 1rem;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        .back-home-btn:hover {
+            background-color: #025aa5;
+        }
+
+</style>

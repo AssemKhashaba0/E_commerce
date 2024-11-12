@@ -1,0 +1,127 @@
+﻿@model Campany
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 class="page-title">Edit Campany</h1>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="Edit" class="form-container shadow-lg">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <!-- Name Field -->
+                <div class="form-group mb-4">
+                    <label asp-for="Name" class="control-label">Name</label>
+                    <input asp-for="Name" class="form-control input-field" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <!-- Description Field -->
+                <div class="form-group mb-4">
+                    <label asp-for="Description" class="control-label">Description</label>
+                    <input asp-for="Description" class="form-control input-field" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <!-- Address Field -->
+                <div class="form-group mb-4">
+                    <label asp-for="Address" class="control-label">Address</label>
+                    <input asp-for="Address" class="form-control input-field" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-group text-center">
+                    <input type="submit" value="Save" class="btn btn-custom" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a asp-action="Index" class="btn btn-back">Back to List</a>
+</div>
+
+<style>
+    /* تنسيق العنوان */
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #4A148C; /* اللون الأساسي */
+        text-align: center;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+    }
+
+    /* تنسيق الحاوية */
+    .container {
+        margin-top: 50px;
+    }
+
+    /* تنسيق النموذج */
+    .form-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    /* تنسيق الحقول */
+    .input-field {
+        border: 1px solid #8E24AA;
+        border-radius: 6px;
+        padding: 12px;
+        font-size: 1rem;
+        color: #4A148C;
+        transition: all 0.3s ease;
+    }
+
+    .input-field:focus {
+        border-color: #4A148C;
+        box-shadow: 0 0 8px rgba(74, 20, 140, 0.3);
+        outline: none;
+    }
+
+    /* تنسيق زر الحفظ */
+    .btn-custom {
+        background-color: #4A148C;
+        border: none;
+        color: #FFFFFF;
+        padding: 12px 24px;
+        font-size: 1rem;
+        font-weight: 500;
+        border-radius: 25px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 4px 10px rgba(74, 20, 140, 0.3);
+    }
+
+    .btn-custom:hover {
+        background-color: #8E24AA;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(74, 20, 140, 0.4);
+    }
+
+    /* زر العودة */
+    .btn-back {
+        color: #4A148C;
+        background-color: transparent;
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: 500;
+        border: 2px solid #4A148C;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .btn-back:hover {
+        background-color: #4A148C;
+        color: #FFFFFF;
+        box-shadow: 0 4px 10px rgba(74, 20, 140, 0.3);
+    }
+</style>

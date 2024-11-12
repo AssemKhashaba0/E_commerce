@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -68,6 +69,118 @@
                 footer a:hover {
                     color: #FFFFFF;
                 }
+
+        /* تنسيق للقائمة المنبثقة */
+        #userMenu {
+            background-color: #fff; /* خلفية بيضاء */
+            border-radius: 8px; /* حواف دائرية */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ظل خفيف لإعطاء تأثير العمق */
+            padding: 20px;
+            min-width: 250px;
+            position: absolute;
+            top: 50px; /* يمكن تعديل الموقع حسب الحاجة */
+            right: 0;
+            z-index: 1000;
+            display: block;
+        }
+
+            /* تنسيق للفقرة داخل القائمة المنبثقة */
+            #userMenu p {
+                font-size: 14px;
+                color: #333;
+                margin-bottom: 10px; /* مسافة بين كل فقرة */
+            }
+
+                /* تنسيق للـ strong (لجعل العناوين بارزة مثل: Name, Email, City) */
+                #userMenu p strong {
+                    font-weight: bold;
+                    color: #4A148C; /* لون بارز مشابه للون رئيسي */
+                }
+
+            /* تنسيق لزر تسجيل الخروج */
+            #userMenu .btn-danger {
+                background-color: #FF3B30; /* لون خلفية الزر */
+                color: #fff; /* لون النص الأبيض */
+                font-size: 14px;
+                padding: 10px 15px;
+                border-radius: 5px;
+                width: 100%; /* ليأخذ الزر كامل العرض */
+                margin-top: 15px; /* مسافة من الفقرات */
+                text-align: center;
+                transition: background-color 0.3s;
+            }
+
+                #userMenu .btn-danger:hover {
+                    background-color: #D50032; /* تأثير hover */
+                }
+
+            /* تنسيق خاص للـ icon عند إضافة صورة */
+            #userMenu .fa-user {
+                font-size: 20px;
+                margin-right: 10px;
+                color: #8E24AA;
+            }
+
+        /* تنسيق الصورة الافتراضية للمستخدم */
+        #userIcon img {
+            width: 30px; /* حجم الصورة */
+            height: 30px;
+            object-fit: cover; /* لتناسب الصورة مع الشكل الدائري */
+            border-radius: 50%; /* شكل دائري للصورة */
+        }
+
+        /* تنسيق القائمة المنبثقة */
+        #userMenu {
+            display: none; /* مخفية بشكل افتراضي */
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            min-width: 250px;
+            position: absolute;
+            top: 60px; /* المسافة من الأعلى */
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+            /* تنسيق الفقرات داخل القائمة المنبثقة */
+            #userMenu p {
+                font-size: 14px;
+                color: #333;
+                margin-bottom: 10px;
+            }
+
+                /* تنسيق النصوص المميزة مثل الاسم والبريد الإلكتروني */
+                #userMenu p strong {
+                    font-weight: bold;
+                    color: #4A148C;
+                }
+
+            /* تنسيق زر تسجيل الخروج */
+            #userMenu .btn-danger {
+                background-color: #FF3B30;
+                color: #fff;
+                font-size: 14px;
+                padding: 10px 15px;
+                border-radius: 5px;
+                width: 100%;
+                margin-top: 15px;
+                transition: background-color 0.3s ease;
+            }
+
+                #userMenu .btn-danger:hover {
+                    background-color: #D50032;
+                }
+
+        #userMenu {
+            display: none;
+        }
+
+            #userMenu.show {
+                display: block;
+            }
+
     </style>
 </head>
 <body>
@@ -75,7 +188,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/logo/logo.png" alt="E_commerce Logo" style="height: 40px; width: auto;" /> <!-- صورة اللوجو -->
+                    <img src="~/logo/logo.png" alt="E_commerce Logo" style="height: 40px; width: auto;" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -83,36 +196,101 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        <!-- Home Link -->
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+
+                        <!-- Privacy Link -->
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <!-- القائمة المنسدلة -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Managemant System
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/category/index">Category</a></li>
-                                <li><a class="dropdown-item" href="/product/index">product</a></li>
-                                <li><a class="dropdown-item" href="#">Campany</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">All_User</a></li>
-                                <li>
-                                    <a class="dropdown-item" href="/Support/messages">
-                                        Support messages
-                                    </a>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+
+                        <!-- Management System Dropdown for Admin or Company Roles -->
+                        @if (User.IsInRole(SD.AdminRole) || User.IsInRole(SD.companyRole))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-cogs"></i> Management System
+                                </a>
+
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="/category/index">
+                                            <i class="fas fa-list"></i> Category
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/product/index">
+                                            <i class="fas fa-box"></i> Product
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/campany/index">
+                                            <i class="fas fa-building"></i> Company
+                                        </a>
+                                    </li>
+
+                                    @if (User.IsInRole(SD.AdminRole))
+                                    {
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <i class="fas fa-users"></i> All Users
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="/Support/messages">
+                                                <i class="fas fa-envelope"></i> Support Messages
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Links for Unauthenticated Users (Login/Register) -->
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <!-- Login Link -->
+                            <li class="nav-item m-1">
+                                <a class="nav-link btn btn-outline-light" href="/Account/login">
+                                    <i class="fa fa-sign-in-alt"></i> Login
+                                </a>
+                            </li>
+
+                            <!-- Register Link -->
+                            <li class="nav-item m-1">
+                                <a class="nav-link btn btn-outline-light" href="/Account/register">
+                                    <i class="fa fa-user-plus"></i> Register
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item dropdown m-1">
+                                <a href="#" class="nav-link btn btn-outline-light dropdown-toggle" id="userIcon" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-user"></i> <span id="username">@User.Identity.Name</span>
+                                </a>
+
+                                <!-- User Dropdown Menu -->
+                                <ul id="userMenu" class="dropdown-menu dropdown-menu-end p-3" aria-labelledby="userIcon">
+                                    <li><p><strong>Hi</strong> <span id="userNameDisplay">@User.Identity.Name</span></p></li>
+                                    <li><a class="btn btn-danger btn-block" href="/Account/logout">Logout</a></li>
+                                </ul>
+                            </li>
+                        }
                     </ul>
                 </div>
+
+               
+
             </div>
         </nav>
     </header>
+
 
     <!-- هنا يحتوي على محتوى الصفحة الرئيسية -->
     <div class="container">
@@ -127,6 +305,28 @@
             &copy; 2024 - 5Shop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Toggle User Menu on Icon Click
+            document.addEventListener('click', function (event) {
+                const userIcon = document.getElementById('userIcon');
+                const userMenu = document.getElementById('userMenu');
+
+                // تحقق من وجود العناصر قبل المتابعة
+                if (userIcon && userMenu) {
+                    // إذا تم النقر على أي مكان خارج القائمة، قم بإغلاقها
+                    if (!userIcon.contains(event.target) && !userMenu.contains(event.target)) {
+                        userMenu.classList.remove('show');
+                    }
+                    // إذا تم النقر على الأيقونة، قم بتبديل حالة العرض للقائمة
+                    else if (userIcon.contains(event.target)) {
+                        event.preventDefault();
+                        userMenu.classList.toggle('show');
+                    }
+                }
+            });
+        });
+    </script>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
