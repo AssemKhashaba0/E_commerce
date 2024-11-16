@@ -1,17 +1,41 @@
-﻿@model List<product>
+﻿@model IQueryable<product>
+
 @section Scripts {
     <script>
         @if (TempData["success"] != null)
         {
             <text>toastr["success"]("@TempData["success"]"); </text>
         }
+
+
+
+        @if (TempData["warning"] != null)
+        {
+            <text>toastr["warning"]("@TempData["warning"]"); </text>
+        }
+
+        @if (TempData["error"] != null)
+        {
+            <text>toastr["error"]("@TempData["error"]"); </text>
+        }
+
     </script>
 }
+<!-- نموذج البحث -->
+<form action="@Url.Action("Index", "Home")" method="get" class="search-form w-100">
+    <div class="input-group">
+        <input type="text" id="searchInput" class="form-control border-primary" name="q" placeholder="Search for products..." aria-label="Search for products">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </div>
+    </div>
+</form>
 
+<!-- عرض المنتجات -->
 <div class="container py-5">
     <div class="row">
-        <!-- Card 1 -->
-
         @foreach (var item in Model)
         {
             <div class="col-md-4 mb-4">
@@ -32,14 +56,61 @@
                 </div>
             </div>
         }
-        
-
-       
     </div>
+</div>
+
+<!-- صفحات التصفح -->
+<div class="pagination-container">
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(ViewBag.pageNumber == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { pageNumber = ViewBag.pageNumber - 1 })" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            @for (int i = 1; i <= ViewBag.totalPages && i <= 5; i++)
+            {
+                <li class="page-item @(i == ViewBag.pageNumber ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { pageNumber = i })">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(ViewBag.pageNumber == ViewBag.totalPages ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { pageNumber = ViewBag.pageNumber + 1 })" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>
 
 <!-- تنسيق الكروت -->
 <style>
+    /* تنسيق النموذج */
+    .search-form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 10px 15px;
+    }
+
+    .input-group {
+        border-radius: 25px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+        background-color: #4A148C;
+        border-color: #4A148C;
+        border-radius: 50px;
+    }
+
+        .btn-primary:hover {
+            background-color: #8E24AA;
+            border-color: #8E24AA;
+        }
+
+    /* تنسيق الكروت */
     .product-card {
         border: none;
         overflow: hidden;
@@ -56,14 +127,20 @@
     .product-image {
         max-height: 200px;
         object-fit: cover;
+        transition: transform 0.3s ease;
     }
+
+        .product-image:hover {
+            transform: scale(1.05);
+        }
 
     .product-info {
         padding: 15px;
+        text-align: center;
     }
 
     .product-price {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         font-weight: bold;
         color: #4A148C;
     }
@@ -77,11 +154,43 @@
         background-color: #8E24AA;
         color: #ffffff;
         font-weight: bold;
+        border-radius: 50px;
         transition: background-color 0.3s ease;
     }
 
         .btn-details:hover {
             background-color: #4A148C;
+            color: #ffffff;
+        }
+
+    /* تنسيق صفحات التصفح */
+    .pagination-container {
+        margin-top: 30px;
+    }
+
+    .pagination {
+        justify-content: center;
+        font-size: 1.1rem;
+    }
+
+    .page-item.disabled .page-link {
+        color: #ddd;
+    }
+
+    .page-item.active .page-link {
+        background-color: #8E24AA;
+        border-color: #8E24AA;
+    }
+
+    .page-link {
+        color: #4A148C;
+        border-radius: 50px;
+        padding: 10px 15px;
+        margin: 0 5px;
+    }
+
+        .page-link:hover {
+            background-color: #FFB300;
             color: #ffffff;
         }
 </style>

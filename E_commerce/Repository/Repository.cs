@@ -4,6 +4,7 @@ using E_commerce.Migrations;
 using E_commerce.Models;
 using E_commerce.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace E_commerce.Repository
 {
@@ -25,6 +26,35 @@ namespace E_commerce.Repository
         {
             return include == null ? dbSet.ToList() : dbSet.Include(include).ToList();
         }
+
+        // CRUD operations
+        public IEnumerable<T> Get(Expression<Func<T, object>>[]? includeProp = null, Expression<Func<T, bool>> expression = null)
+        {
+            IQueryable<T> query = dbSet;
+
+            if (expression != null)
+            {
+                query = query.Where(expression);
+            }
+
+            if (includeProp != null)
+
+            {
+                foreach(var prop in includeProp)
+                {
+                    query = query.Include(prop);
+
+                }
+            }
+
+            return query.ToList();
+        }
+
+        public T? GetOne(Expression<Func<T, bool>> expression)
+        {
+            return dbSet.Where(expression).FirstOrDefault();
+        }
+
 
         public T? GetById(int entityId)
         {

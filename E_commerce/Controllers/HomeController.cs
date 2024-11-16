@@ -16,12 +16,26 @@ namespace E_commerce.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string q, int pageNumber = 1)
         {
-            var product = dbContext.products.ToList();
-            return View(product);
+            IQueryable<product> product = dbContext.products.Include(e => e.category);
+            if (pageNumber - 1 <= product.Count() / 5)
+            {
+                if (q != null)
+                {
+                    product = product.Where(e => e.Name.Contains(q));
+                }
+                ViewBag.pageNumber = pageNumber; // ????? pageNumber ??? View
+                ViewBag.totalPages = (int)Math.Ceiling((double)product.Count() / 5); // ????? ?????? ??????? ?????
+                product = product.Skip((pageNumber - 1) * 5).Take(5);
+                return View(product);
+
+            }
+
+
+            return RedirectToAction("Index", new { q = q, pageNumber = 1 });
         }
-         public IActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             
             var product = dbContext.products.Include(p => p.category).FirstOrDefault(p => p.Id == id);

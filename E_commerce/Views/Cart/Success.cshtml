@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewData["Title"] = "Success";
+    Layout = "~/Views/Shared/Account.cshtml";
+}
+
+
+@{
+    ViewData["Title"] = "Payment Confirmation";
+}
+
+<div class="container text-center mt-5">
+    <!-- Title Section -->
+    <h1 class="display-4 text-success mb-4">Thank You for Your Payment!</h1>
+    <p class="lead mb-4">Your order has been confirmed successfully. We will send the order details to your email soon.</p>
+    
+    <!-- Description Section -->
+    <div class="alert alert-info shadow-sm">
+        <p>لقد تم تأكيد طلبك بنجاح. سنقوم بإرسال تفاصيل الطلب إلى بريدك الإلكتروني قريباً.</p>
+    </div>
+
+    <!-- Button Section -->
+    <a href="/" class="btn btn-lg btn-gradient mt-3 shadow-lg">Return to Home</a>
+</div>
+
+<!-- Custom CSS for creative design -->
+<style>
+    body {
+        background: linear-gradient(135deg, #4A148C, #8E24AA);
+        color: #fff;
+        font-family: 'Arial', sans-serif;
+        height: 100vh;
+        margin: 0;
+    }
+    
+    .container {
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .display-4 {
+        font-size: 3rem;
+        font-weight: bold;
+    }
+
+    .btn-gradient {
+        background: linear-gradient(to right, #FFB300, #FF8C00);
+        border: none;
+        color: white;
+        font-size: 1.2rem;
+        padding: 12px 30px;
+        border-radius: 30px;
+        transition: background 0.3s ease;
+    }
+
+    .btn-gradient:hover {
+        background: linear-gradient(to right, #FF8C00, #FFB300);
+        transform: scale(1.05);
+    }
+
+    .alert-info {
+        background-color: rgba(0, 123, 255, 0.1);
+        border-left: 4px solid #007bff;
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+
+    .shadow-sm {
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    .lead {
+        font-size: 1.25rem;
+        font-weight: 300;
+    }
+</style>

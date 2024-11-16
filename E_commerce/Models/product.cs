@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿using E_commerce.Migrations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -31,5 +32,11 @@ namespace E_commerce.Models
         [ValidateNever]
         public Campany campany { get; set; }
 
+        public List<Cart> carts { get; set; }
+
+        public List<OrderDetail> OrderDetails { get; set; }
+        public List<OrderTracking> OrderTrackings { get; set; }
+
     }
 }
+

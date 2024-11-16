@@ -20,6 +20,10 @@ namespace E_commerce.Data
         public DbSet<category> categories { get; set; }
         public DbSet<SupportMessage> SupportMessages { get; set; }
         public DbSet<Campany> Campanies { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<OrderTracking> OrderTracking { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -29,7 +33,23 @@ namespace E_commerce.Data
                 .GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(builder);
         }
-        public DbSet<E_commerce.ViewModel.ApplicationUserVM> ApplicationUserVM { get; set; } = default!;
-        public DbSet<E_commerce.ViewModel.LoginVM> LoginVM { get; set; } = default!;
+       protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    base.OnModelCreating(modelBuilder);
+
+    // العلاقة بين Order و OrderDetail
+    modelBuilder.Entity<OrderDetail>()
+        .HasOne(od => od.Order)
+        .WithMany(o => o.OrderDetails)
+        .HasForeignKey(od => od.OrderId);
+
+    // العلاقة بين Order و OrderTracking
+    modelBuilder.Entity<OrderTracking>()
+        .HasOne(ot => ot.Order)
+        .WithMany(o => o.OrderTrackingDetails)
+        .HasForeignKey(ot => ot.OrderId);
+}
+
+        
     }
 }

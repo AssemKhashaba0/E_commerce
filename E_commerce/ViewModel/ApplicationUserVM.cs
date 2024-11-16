@@ -28,5 +28,6 @@ namespace E_commerce.ViewModel
         [Required(ErrorMessage = "Please enter your city.")]
         public string City { get; set; }
 
+
     }
 }

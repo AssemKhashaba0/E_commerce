@@ -23,17 +23,20 @@
                         <p class="product-description">@Model.Description</p>
 
                         <!-- إدخال الكمية -->
+                    <form asp-action="AddToCart" asp-controller="Cart" method="post" class="mb-4">
+                        <input type="hidden" name="id" value="@Model.Id" />
                         <div class="quantity-section mb-3 d-flex align-items-center">
                             <label for="quantity" class="form-label me-3"><strong>Quantity:</strong></label>
                             <div class="quantity-input">
-                                <button class="btn btn-outline-secondary btn-quantity" onclick="decreaseQuantity()">-</button>
+                                <button type="button" class="btn btn-outline-secondary btn-quantity" onclick="decreaseQuantity()">-</button>
                                 <input type="number" id="quantity" name="quantity" value="1" min="1" class="form-control text-center" readonly>
-                                <button class="btn btn-outline-secondary btn-quantity" onclick="increaseQuantity()">+</button>
+                                <button type="button" class="btn btn-outline-secondary btn-quantity" onclick="increaseQuantity()">+</button>
                             </div>
                         </div>
 
                         <!-- زر إضافة إلى السلة -->
-                        <a href="#" class="btn btn-add-to-cart btn-block">Add to Cart</a>
+                        <button type="submit" class="btn btn-add-to-cart btn-block">Add to Cart</button>
+                    </form>
                     </div>
                 </div>
             </div>

@@ -119,6 +119,56 @@ namespace E_commerce.Migrations
                     b.ToTable("Campanies");
                 });
 
+            modelBuilder.Entity("E_commerce.Models.Cart", b =>
+                {
+                    b.Property<int>("productId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApplicationUsertId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.HasKey("productId", "ApplicationUsertId");
+
+                    b.HasIndex("ApplicationUsertId");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("E_commerce.Models.OrderDetail", b =>
+                {
+                    b.Property<int>("OrderDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderDetailId"));
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("productId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderDetailId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("productId");
+
+                    b.ToTable("OrderDetails");
+                });
+
             modelBuilder.Entity("E_commerce.Models.SupportMessage", b =>
                 {
                     b.Property<int>("Id")
@@ -342,6 +392,107 @@ namespace E_commerce.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("OrderTracking", b =>
+                {
+                    b.Property<int>("TrackingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TrackingId"));
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("productId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TrackingId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("productId");
+
+                    b.ToTable("OrderTracking");
+                });
+
+            modelBuilder.Entity("E_commerce.Models.Cart", b =>
+                {
+                    b.HasOne("E_commerce.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("carts")
+                        .HasForeignKey("ApplicationUsertId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("E_commerce.Models.product", "product")
+                        .WithMany("carts")
+                        .HasForeignKey("productId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("product");
+                });
+
+            modelBuilder.Entity("E_commerce.Models.OrderDetail", b =>
+                {
+                    b.HasOne("Order", "Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("E_commerce.Models.product", "product")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("productId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("product");
+                });
+
             modelBuilder.Entity("E_commerce.Models.product", b =>
                 {
                     b.HasOne("E_commerce.Models.Campany", "campany")
@@ -410,6 +561,37 @@ namespace E_commerce.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Order", b =>
+                {
+                    b.HasOne("E_commerce.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("OrderTracking", b =>
+                {
+                    b.HasOne("Order", "Order")
+                        .WithMany("OrderTrackingDetails")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("E_commerce.Models.product", null)
+                        .WithMany("OrderTrackings")
+                        .HasForeignKey("productId");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("E_commerce.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("carts");
+                });
+
             modelBuilder.Entity("E_commerce.Models.Campany", b =>
                 {
                     b.Navigation("Products");
@@ -418,6 +600,22 @@ namespace E_commerce.Migrations
             modelBuilder.Entity("E_commerce.Models.category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("E_commerce.Models.product", b =>
+                {
+                    b.Navigation("OrderDetails");
+
+                    b.Navigation("OrderTrackings");
+
+                    b.Navigation("carts");
+                });
+
+            modelBuilder.Entity("Order", b =>
+                {
+                    b.Navigation("OrderDetails");
+
+                    b.Navigation("OrderTrackingDetails");
                 });
 #pragma warning restore 612, 618
         }

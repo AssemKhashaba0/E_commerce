@@ -2,9 +2,11 @@ using E_commerce.Data;
 using E_commerce.Models;
 using E_commerce.Repository;
 using E_commerce.Repository.IRepository;
+using E_commerce.utility;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 
 namespace E_commerce
 {
@@ -23,7 +25,14 @@ namespace E_commerce
      .AddEntityFrameworkStores<ApplicationDbContext>()
      .AddDefaultTokenProviders();
             builder.Services.AddScoped<ICategoryRepository ,CategoryRepository>();
-         
+            builder.Services.AddScoped<ICartRepository, CartRepository>();
+
+            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+            StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
+
+            builder.Services.AddTransient<IEmailSender, EmailSender>();
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

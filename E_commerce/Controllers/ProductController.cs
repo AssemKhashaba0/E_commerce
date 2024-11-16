@@ -9,10 +9,24 @@ namespace E_commerce.Controllers
     public class ProductController : Controller
     {
         ApplicationDbContext dbContext = new ApplicationDbContext();
-        public IActionResult Index()
+        public IActionResult Index( string q ,int pageNumber = 1)
         {
-            var product = dbContext.products.Include(e => e.category).ToList();
-            return View(product);
+            IQueryable<product> product = dbContext.products.Include(e => e.category);
+            if (pageNumber -1 <= product.Count()/5)
+            {
+                if (q != null)
+                {
+                    product = product.Where(e => e.Name.Contains(q));
+                }
+                ViewBag.pageNumber = pageNumber; // تمرير pageNumber إلى View
+                ViewBag.totalPages = (int)Math.Ceiling((double)product.Count() / 5); // تمرير إجمالي الصفحات أيضًا
+                product = product.Skip((pageNumber - 1) * 5).Take(5);
+                return View(product);
+
+            }
+
+           
+            return RedirectToAction("Index", new { q = q, pageNumber = 1 });
         }
         [HttpGet]
         public IActionResult create()

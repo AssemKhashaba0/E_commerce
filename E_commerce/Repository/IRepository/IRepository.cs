@@ -1,4 +1,5 @@
 ﻿using E_commerce.Models;
+using System.Linq.Expressions;
 
 namespace E_commerce.Repository.IRepository
 {
@@ -6,6 +7,10 @@ namespace E_commerce.Repository.IRepository
     {
         List<T> GatAll(string? include = null);
 
+        // CRUD
+        public IEnumerable<T> Get(Expression<Func<T, object>>[]? includeProp = null, Expression<Func<T, bool>>? expression = null);
+
+        T? GetOne(Expression<Func<T, bool>> expression);
 
         T? GetById(int entityId);
 
